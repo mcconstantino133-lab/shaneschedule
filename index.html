@@ -1,1 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shane's Schedule</title>
+    <style>
+        :root {
+            --bg-color: #fff0f5;
+            --card-color: #ffffff;
+            --primary-color: #ff69b4;
+            --text-color: #4a4a4a;
+            --border-color: #ffb6c1;
+            --accent-color: #ffe4e1;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0;
+            color: #d11a5b;
+            font-size: 2.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        p {
+            color: #b15a76;
+            margin: 5px 0 0 0;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--card-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(255, 182, 193, 0.3);
+            padding: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .schedule-table th, .schedule-table td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            vertical-align: top;
+        }
+
+        .schedule-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        .time-col {
+            width: 12%;
+            font-weight: bold;
+            background-color: #fff5f7;
+            color: #d11a5b;
+        }
+
+        .editable-cell {
+            cursor: pointer;
+            min-height: 40px;
+            outline: none;
+            transition: background-color 0.2s;
+            border-radius: 4px;
+            padding: 4px;
+            white-space: pre-wrap;
+        }
+
+        .editable-cell:hover {
+            background-color: var(--accent-color);
+        }
+
+        .editable-cell:focus {
+            background-color: var(--accent-color);
+            border: 1px dashed var(--primary-color);
+        }
+
+        .notes-sidebar h2 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            color: #d11a5b;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 5px;
+        }
+
+        .notepad {
+            width: 100%;
+            height: 400px;
+            border: 1px solid #ffccd5;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            background-color: #fff9fa;
+            padding: 10px;
+            box-sizing: border-box;
+            border-radius: 8px;
+            color: var(--text-color);
+        }
+        
+        .clear-btn {
+            margin-top: 10px;
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: background 0.2s;
+        }
+        .clear-btn:hover {
+            background-color: #c9184a;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Shane’s Schedule</h1>
+        <p>Click inside any box or the reminders notepad to type. Your edits save automatically!</p>
+    </header>
+
+    <div class="main-layout">
+        <!-- Schedule Section -->
+        <div class="card">
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th class="time-col">Time</th>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="time-col">08:00 AM</td>
+                        <td><div class="editable-cell" id="shane-mon-8" contenteditable="true"></div></td>
+                        <td><div class="editable-cell" id="shane-tue-8" contenteditable="true"></div></td>
+                        <td><div class="editable-cell" id="shane-wed-8" contenteditable="true"></div></td>
+                        <td><div class="editable-cell" id="shane-thu-8" contenteditable="true"></div></td>
+                        <td><div class="editable-cell" id="shane-fri-8" contenteditable="true"></div></td>
+                    </tr>
+                    <tr>
+                        <td class="time-col">09:30 AM</td>
+                        <td><div class="editable-cell" id="shane-mon-9" contenteditable="true"></div></td>
+                        <td><div class="editable-cell" id="shane-tue-9" contenteditable="true"></div></td>
+                        <td><div class="editable-cell" id="shane-wed-9" contenteditable="true"></div></td>
+                        <td><div class="editable-cell" id="shane-thu-9" contenteditable="true"></div></td>
+                        <td><div class="editable-cell" id="shane-fri-9" contenteditable="true"></div></td>
+                    </tr>
+                    <tr>
+                        <td class="time-col">11:00 AM</td>
+                        <td><div class="editable-cell" id="shane-mon-11" contenteditable="true"></div></td>
+                        <td><div class="editable-cell" id="shane-tue-11" contenteditable="true"></div></td>
+                        <td><div class="editable-cell" id="shane-wed-11" contenteditable="true"></div></td>
+                        <td><div class="editable-cell" id="shane-thu-11" contenteditable="true"></div></td>
+                        <td><div class="editable-cell" id="shane-fri-11" contenteditable="true"></div></td>
+                    </tr>
+                    <tr>
+                        <td class="time-col">12:30 PM</td>
+                        <td colspan="5" style="text-align: center; background-color: #ffe5ec; font-style: italic; color: #d11a5b; font-weight: bold;">Lunch Break</td>
+                    </tr>
+                    <tr>
+                        <td class="time-col">01:30 PM</td>
+                        <td><div class="editable-cell" id="shane-mon-13" contenteditable="true"></div></td>
+                        <td><div class="editable-cell" id="shane-tue-13" contenteditable="true"></div></td>
+                        <td><div class="editable-cell" id="shane-wed-13" contenteditable="true"></div></td>
+                        <td><div class="editable-cell" id="shane-thu-13" contenteditable="true"></div></td>
+                        <td><div class="editable-cell" id="shane-fri-13" contenteditable="true"></div></td>
+                    </tr>
+                    <tr>
+                        <td class="time-col">03:00 PM</td>
+                        <td><div class="editable-cell" id="shane-mon-15" contenteditable="true"></div></td>
+                        <td><div class="editable-cell" id="shane-tue-15" contenteditable="true"></div></td>
+                        <td><div class="editable-cell" id="shane-wed-15" contenteditable="true"></div></td>
+                        <td><div class="editable-cell" id="shane-thu-15" contenteditable="true"></div></td>
+                        <td><div class="editable-cell" id="shane-fri-15" contenteditable="true"></div></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Sidebar Notes Section -->
+        <div class="card notes-sidebar">
+            <h2>Notes & Reminders</h2>
+            <textarea class="notepad" id="shane-notes" placeholder="Type homework deadlines, exam dates, or reminders here..."></textarea>
+            <button class="clear-btn" id="shane-clear">Reset All Data</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const editableCells = document.querySelectorAll(".editable-cell");
+        const notepad = document.getElementById("shane-notes");
+        const clearBtn = document.getElementById("shane-clear");
+
+        // 1. Load saved data from localStorage
+        editableCells.forEach(cell => {
+            const savedText = localStorage.getItem(cell.id);
+            if (savedText) {
+                cell.innerText = savedText;
+            }
+
+            // 2. Save text automatically when clicking away
+            cell.addEventListener("blur", () => {
+                localStorage.setItem(cell.id, cell.innerText);
+            });
+        });
+
+        // Load notepad
+        const savedNotes = localStorage.getItem("shane-notes");
+        if (savedNotes) {
+            notepad.value = savedNotes;
+        }
+
+        // Save notepad entries on typing
+        notepad.addEventListener("input", () => {
+            localStorage.setItem("shane-notes", notepad.value);
+        });
+
+        // Reset system
+        clearBtn.addEventListener("click", () => {
+            if(confirm("Are you sure you want to clear your schedule and notes, Shane?")) {
+                localStorage.clear();
+                editableCells.forEach(cell => cell.innerText = "");
+                notepad.value = "";
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
